@@ -12,10 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
 		const scene = new Scene();
 		const particles = new Particles({
 			renderer,
-			skew: 													15,
+			skew: 													10,
 		  hoverDist: 											0.04,
 		  hoverSizeInc: 									0.01,
 		  hoverMaxSizeMultiplier: 				3,
+			textColourDivider:		 					2,
 		  textSizeMultiplier: 						7.5,
 		  textPositionMultiplier:					6,
 		  minSize:												0.02,

@@ -1,8 +1,39 @@
 <!doctype html>
 <html>
   {{> head title=home.pageTitle }}
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #000;
+      background: linear-gradient(#05112d, #112758);
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    html,
+    body {
+      color: white;
+      font-family: arial, sans-serif;
+      font-size: 13px;
+      font-weight: normal;
+      height: 100%;
+      line-height: 1.5;
+    }
+  
+    #stars-simulation-container {
+      width: 100%;
+      height: 100%;
+    }
+
+    #stars-simulation-container canvas {
+      position: absolute;
+    }
+  </style>
   <body>
 		<div id="stars-simulation-container"></div>
-    {{> ga }}
   </body>
 </html>

@@ -37,6 +37,7 @@ export default class Particles {
 		animationFrames = [],
 		topSpeed = 0.07,
 		acceleration = 0.01,
+		textColourDivider = 2,
 		textSizeMultiplier = 2,
 		textPositionMultiplier = 2,
 	}) {
@@ -60,6 +61,7 @@ export default class Particles {
 		// use to define moving particles
 		this.topSpeed = topSpeed;
 		this.acceleration = acceleration;
+		this.textColourDivider = textColourDivider;
 		this.textSizeMultiplier = textSizeMultiplier;
 		this.textPositionMultiplier = textPositionMultiplier;
 		this.animationFrames = animationFrames;
@@ -123,6 +125,7 @@ export default class Particles {
 			tText: { type: 't', value: 0 },
 			tPosition: { type: 't', value: this.positionFBO.targets[0] },
 			tSize: { type: 't', value: this.sizeFBO.targets[0] },
+			textColourDivider: { type: 'f', value: this.textColourDivider },
 			textSizeMultiplier: { type: 'f', value: this.textSizeMultiplier },
 
 			tColour: { type: 't', value: createDataTexture({
@@ -158,7 +161,7 @@ export default class Particles {
 		this.particles.frustumCulled = false;
 		
 		this.text = ''
-		document.onkeyup = this.onTextInput.bind(this);
+		document.onkeydown = this.onTextInput.bind(this);
 
 		window.addEventListener('resize', this.onWindowResize.bind(this));
 		// document.addEventListener('touchmove', this.onMouseMove.bind(this), false);
@@ -291,22 +294,22 @@ export default class Particles {
 			const highRandomVal = Math.ceil((1 - randomVal) * 10);
 
 			switch (highRandomVal) {
-				case 1:
-					r = randomVal * 5;
+				case 3:
+					r = randomVal * 2.5;
 					g = randomVal * 1.6;
 					b = randomVal * 1.2;
 					break;
 
 				case 2:
 					r = randomVal * 1.6;
-					g = randomVal * 5;
-					b = randomVal * 5;
+					g = randomVal * 4;
+					b = randomVal * 4;
 					break;
 
-				case 3:
-					r = randomVal * 1.6;
-					g = randomVal * 1.6;
-					b = randomVal * 4;
+				case 1:
+					r = randomVal * 3;
+					g = randomVal * 3;
+					b = randomVal * 1.6;
 					break;
 			}
 		} else {
