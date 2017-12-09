@@ -5,7 +5,8 @@
     "imagesFolder": "images",
     "jsVendorUrl": "js/vendor.js",
     "jsBundleUrl": "js/bundle.js",
-    "version": "1.0.0"
+    "siteUrl": "https://tuqire.github.io/text-stars",
+    "version": "1.0.1"
   },
   "home": {
     "pageTitle": "Text as Stars: By Tuqire Hussain"
