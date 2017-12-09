@@ -295,7 +295,7 @@ export default class Particles {
 
 			switch (highRandomVal) {
 				case 3:
-					r = randomVal * 2.5;
+					r = randomVal * 2.1;
 					g = randomVal * 1.6;
 					b = randomVal * 1.2;
 					break;
