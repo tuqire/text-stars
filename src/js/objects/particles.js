@@ -37,6 +37,7 @@ export default class Particles {
 		animationFrames = [],
 		topSpeed = 0.07,
 		acceleration = 0.01,
+		textColourDivider = 2,
 		textSizeMultiplier = 2,
 		textPositionMultiplier = 2,
 	}) {
@@ -60,6 +61,7 @@ export default class Particles {
 		// use to define moving particles
 		this.topSpeed = topSpeed;
 		this.acceleration = acceleration;
+		this.textColourDivider = textColourDivider;
 		this.textSizeMultiplier = textSizeMultiplier;
 		this.textPositionMultiplier = textPositionMultiplier;
 		this.animationFrames = animationFrames;
@@ -87,9 +89,7 @@ export default class Particles {
 				topSpeed: { type: 'f', value: this.topSpeed }, // the top speed of stars
 				acceleration: { type: 'f', value: this.acceleration }, // the star particle acceleration
 
-				textPositionMultiplier: { type: 'f', value: this.textPositionMultiplier },
-
-				readyForTextAnimation: { type: 'b', value: false } // whether text animation should start
+				textPositionMultiplier: { type: 'f', value: this.textPositionMultiplier }
 			},
 			simulationVertexShader: positionSimulationVertexShader,
 			simulationFragmentShader: positionSimulationFragmentShader
@@ -125,6 +125,7 @@ export default class Particles {
 			tText: { type: 't', value: 0 },
 			tPosition: { type: 't', value: this.positionFBO.targets[0] },
 			tSize: { type: 't', value: this.sizeFBO.targets[0] },
+			textColourDivider: { type: 'f', value: this.textColourDivider },
 			textSizeMultiplier: { type: 'f', value: this.textSizeMultiplier },
 
 			tColour: { type: 't', value: createDataTexture({
@@ -158,10 +159,9 @@ export default class Particles {
 
 		this.particles = new THREE.Points(geometry, this.material);
 		this.particles.frustumCulled = false;
-
-		// text animation
-		setTimeout(() => this.positionFBO.simulationShader.uniforms.readyForTextAnimation.value = true, this.readyForTextAnimationDelay);
-		this.setAnimation();
+		
+		this.text = ''
+		document.onkeydown = this.onTextInput.bind(this);
 
 		window.addEventListener('resize', this.onWindowResize.bind(this));
 		// document.addEventListener('touchmove', this.onMouseMove.bind(this), false);
@@ -187,51 +187,44 @@ export default class Particles {
 
 		this.sizeFBO.simulationShader.uniforms.mouse.value.set(xMultiplier * mouseX, yMultiplier * mouseY, 0);
 	}
+	
+	setTextTexture(textCanvas) {
+		const textTexture = new THREE.Texture(textCanvas);
+		textTexture.minFilter = textTexture.magFilter = THREE.NearestFilter;
+		textTexture.needsUpdate = true;
+		textTexture.flipY = true;
+		this.positionFBO.simulationShader.uniforms.tText.value = this.material.uniforms.tText.value = textTexture;
+	}
 
-	createCanvasAnimation({
-		canvasDepth = 1,
-		text = [],
-		images = []
+	onTextInput({
+		key = ''
 	}) {
-		const numImages = images.length;
+		const canvasDepth = 1;
 		const textCanvas = document.createElement('canvas');
+		
+		if (key !== 'Backspace' && (key.length !== 1 || !key.match(/[a-z ]?/i))) {
+			return;
+		}
+		
+		if (key === 'Backspace') {
+			this.text = this.text.slice(0, -1)
+		} else {
+			this.text += key;
+		}
+		
 		textCanvas.width = textCanvas.height = Math.sqrt(this.numParticles) * canvasDepth;
-		const canvasCenter = textCanvas.height / 2;
+		
+		const canvasCenterV = textCanvas.height / 2;
+		const canvasCenterH = textCanvas.width / 2;
 		const ctx = textCanvas.getContext('2d', {
 			alpha: false
 		});
 
-		const setTextTexture = () => {
-			const textTexture = new THREE.Texture(textCanvas);
-			textTexture.minFilter = textTexture.magFilter = THREE.NearestFilter;
-			textTexture.needsUpdate = true;
-			textTexture.flipY = true;
-			this.positionFBO.simulationShader.uniforms.tText.value = this.material.uniforms.tText.value = textTexture;
-		};
-
-		text.forEach(({ text, fontSize = 100, position: { x = 0, y = 0 } }) => {
-			ctx.font = `${fontSize}px bold serif`;
-  		ctx.fillStyle = 'white';
-			ctx.fillText(text, (x * canvasDepth), canvasCenter + (y * canvasDepth), textCanvas.width);
-		});
-
-		if (numImages) {
-			let imagesProcessed = 0;
-
-			images.forEach(({ src, position: { x = 0, y = 0 }, width = 0 }) => {
-				  const image = new Image();
-
-				  image.src = src;
-					image.onload = () => {
-						const height = width ? (width / image.width) * image.height : image.height;
-
-						ctx.drawImage(image, x, y, width || image.width, height);
-						++imagesProcessed === numImages && setTextTexture();
-					};
-			});
-		} else {
-			setTextTexture();
-		}
+		ctx.font = `80px bold serif`;
+		ctx.fillStyle = 'white';
+		ctx.fillText(this.text, 0, canvasCenterV, textCanvas.width);
+		
+		this.setTextTexture(textCanvas);
 	}
 
 	getPositions() {
@@ -301,22 +294,22 @@ export default class Particles {
 			const highRandomVal = Math.ceil((1 - randomVal) * 10);
 
 			switch (highRandomVal) {
-				case 1:
-					r = randomVal * 5;
+				case 3:
+					r = randomVal * 2.5;
 					g = randomVal * 1.6;
 					b = randomVal * 1.2;
 					break;
 
 				case 2:
 					r = randomVal * 1.6;
-					g = randomVal * 5;
-					b = randomVal * 5;
+					g = randomVal * 4;
+					b = randomVal * 4;
 					break;
 
-				case 3:
-					r = randomVal * 1.6;
-					g = randomVal * 1.6;
-					b = randomVal * 4;
+				case 1:
+					r = randomVal * 3;
+					g = randomVal * 3;
+					b = randomVal * 1.6;
 					break;
 			}
 		} else {

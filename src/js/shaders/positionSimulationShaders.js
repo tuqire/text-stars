@@ -8,7 +8,6 @@ const positionSimulationFragmentShader = `
 	uniform sampler2D tDefaultPosition;
 	uniform sampler2D tText;
 
-	uniform bool readyForTextAnimation;
 	uniform float topSpeed;
 	uniform float acceleration;
 	uniform float textPositionMultiplier;
@@ -51,7 +50,7 @@ const positionSimulationFragmentShader = `
 			position = defaultPos;
 		}
 
-		if (textOpacity > 0.0 && readyForTextAnimation) {
+		if (textOpacity > 0.0) {
 			position = moveParticleToGoal(position, prevPos, vec3((vUv - 0.5) * textPositionMultiplier, 0.0));
 
 			isTextParticle = 1.0;
