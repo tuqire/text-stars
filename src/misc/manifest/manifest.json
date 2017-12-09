@@ -1,0 +1,19 @@
+{
+  "short_name": "Tuqire",
+  "name": "Tuqire",
+  "icons": [{
+    "src": "assets/images/tuqire-icon-144x144.png",
+    "sizes": "144x144",
+    "type": "image/png"
+  },{
+    "src": "assets/images/tuqire-icon-192x192.png",
+    "sizes": "192x192",
+    "type": "image/png"
+  }],
+  "start_url": ".",
+  "display": "standalone",
+  "description": "Tuqire Portfolio",
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "orientation": "landscrape-primary"
+}

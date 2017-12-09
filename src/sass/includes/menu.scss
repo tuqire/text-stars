@@ -1,0 +1,44 @@
+nav ul,
+nav li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.main-menu {
+  background: rgba(5, 17, 45, 0.3);
+  height: 100%;
+  padding: 40px 15px;
+  position: absolute;
+  right: -250px;
+  top: 0;
+  transition: 400ms right linear;
+  width: 250px;
+
+  &.show {
+    right: 0;
+  }
+
+  @media screen and (min-width: 768px) {
+    padding: 40px 30px;
+    right: -350px;
+    width: 350px;
+  }
+
+  li a {
+    background: rgba(0, 0, 0, 0.2);
+    display: block;
+    opacity: 0.5;
+    padding: 7px 15px;
+    margin-bottom: 5px;
+
+    .title {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

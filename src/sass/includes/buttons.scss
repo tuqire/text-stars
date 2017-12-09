@@ -1,0 +1,25 @@
+.menu-btn {
+  background: white;
+  cursor: pointer;
+  height: 5px;
+  position: absolute;
+  left: -70px;
+  top: 40px;
+  width: 40px;
+
+  &:before,
+  &:after {
+    background: white;
+    content: '';
+    display: block;
+    height: 5px;
+    position: absolute;
+    top: -13px;
+    width: 100%;
+  }
+
+  &:after {
+    bottom: -13px;
+    top: auto;
+  }
+}

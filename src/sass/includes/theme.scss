@@ -1,0 +1,47 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #000;
+  background: linear-gradient(#05112d, #112758);
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+html,
+body {
+  color: white;
+  font-family: arial, sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  height: 100%;
+  line-height: 1.5;
+}
+
+h1 {
+  font-size: 15px;
+  font-weight: normal;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+h5 {
+  bottom: 40px;
+  font-size: 12px;
+  font-weight: normal;
+  margin: 0;
+  opacity: 0.4;
+  position: absolute;
+}
+
+p {
+  margin-bottom: 20px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}

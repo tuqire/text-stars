@@ -1,0 +1,42 @@
+{
+  "name": "tuqire-site",
+  "version": "1.5.1",
+  "description": "Tuqire Hussain's Portfolio Site",
+  "main": "index.js",
+  "author": "Tuqire Hussain",
+  "scripts": {
+    "start": "gulp server",
+    "watch": "gulp watch",
+    "build": "gulp build"
+  },
+  "dependencies": {
+    "detector-webgl": "^2.0.0",
+    "js-media-queries": "^1.0.1",
+    "three": "^0.85.0",
+    "three.js-fbo": "^1.4.3"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^5.0.4",
+    "babel-loader": "^6.2.10",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "bootstrap-sass": "^3.3.7",
+    "eslint": "^1.10.3",
+    "gulp": "^3.9.1",
+    "gulp-changed": "^2.0.0",
+    "gulp-compile-handlebars": "^0.6.1",
+    "gulp-flatten": "^0.3.1",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-imagemin": "^3.4.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-util": "^3.0.8",
+    "handlebars": "^4.0.11",
+    "json-loader": "^0.5.7",
+    "path": "^0.12.7",
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^1.16.2"
+  }
+}

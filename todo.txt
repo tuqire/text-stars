@@ -1,0 +1,8 @@
+- add links to portfolio items
+- add link from github
+- add fog
+- add face animation
+- add mobile hover
+
+- fix build to only use webpack
+- add tests to js-media-queries package
