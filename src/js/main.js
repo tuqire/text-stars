@@ -4,9 +4,6 @@ import Camera from './io/camera';
 import Renderer from './io/renderer';
 import Scene from './objects/scene';
 import Particles from './objects/particles';
-import particlesConfig from './config/particles';
-import cameraConfig from './config/camera';
-import './io/mouse';
 
 document.addEventListener('DOMContentLoaded', () => {
 	if (isWebglEnabled) {
@@ -15,11 +12,28 @@ document.addEventListener('DOMContentLoaded', () => {
 		const scene = new Scene();
 		const particles = new Particles({
 			renderer,
-			...particlesConfig
+			skew: 													15,
+		  hoverDist: 											0.04,
+		  hoverSizeInc: 									0.01,
+		  hoverMaxSizeMultiplier: 				3,
+		  textSizeMultiplier: 						7.5,
+		  textPositionMultiplier:					6,
+		  minSize:												0.02,
+		  maxSize: 												0.05,
+		  sizeDif:												2,
+		  incSize: 												0.0001,
+			numParticles: 									150000,
+		  radius: 												4,
+		  topSpeed:												1,
+		  acceleration:										0.0001
 		});
 		const camera = new Camera({
 			particles,
-			...cameraConfig
+			position: {
+		    x: 														0,
+		    y: 														-0.001,
+		    z: 														4.5
+		  }
 		});
 
 		const init = () => {

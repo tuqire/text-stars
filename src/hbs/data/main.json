@@ -1,23 +1,13 @@
 {
   "general": {
-    "pageDescription": "Welcome to the Portfolio of Tuqire Hussain",
+    "pageDescription": "Type words to see the stars formulate them",
     "assetsBase": "assets",
     "imagesFolder": "images",
-    "styleUrl": "css/main.css",
     "jsVendorUrl": "js/vendor.js",
     "jsBundleUrl": "js/bundle.js",
-    "siteUrl": "http://www.tuqire.com",
-    "email": "me@tuqire.com",
-    "primaryColor": "#000000",
-    "mainMenuLinks": [
-        "Home"
-    ],
-    "version": "1.5.1"
-  },
-  "urls": {
-    "siteUrl": "http://www.tuqire.com"
+    "version": "1.0.0"
   },
   "home": {
-    "pageTitle": "The Portfolio of Tuqire Hussain"
+    "pageTitle": "Text as Stars"
   }
 }
