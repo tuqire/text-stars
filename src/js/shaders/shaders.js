@@ -23,12 +23,15 @@ const fragmentShader = `
 
 	void main() {
 		vec3 defaultPosition = texture2D(tDefaultPosition, vUv).xyz;
+		vec3 goal = vec3((vUv - 0.5) * 4.0, 0);
 		vec3 position = texture2D(tPosition, vUv).xyz;
 		float distanceTravelled = length(position - defaultPosition);
+		float distanceToTravel = length(goal - defaultPosition);
+		float distanceTravelledRatio = distanceTravelled / distanceToTravel;
 	
 		vec4 colour = texture2D(tColour, vUv).rgba;
 
-		gl_FragColor = distanceTravelled <= 0.0 ? (colour / textColourDivider) : setFragVal(colour);
+		gl_FragColor = distanceTravelledRatio <= 0.3 ? (colour / textColourDivider) : setFragVal(colour);
 		gl_FragColor = gl_FragColor * texture2D(starImg, gl_PointCoord);
 	}
 `;
