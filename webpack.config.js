@@ -9,7 +9,7 @@ module.exports = {
 	},
 	output: {
 		path: path.resolve(__dirname, 'dest', 'assets', 'js'),
-		publicPath: 'http://www.tuqire.com/js/',
+		publicPath: 'https://tuqire.github.io/text-stars/assets/js/',
 		filename: '[name].js'
 	},
 	module: {
