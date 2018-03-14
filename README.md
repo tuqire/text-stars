@@ -10,6 +10,8 @@ Still in beta with minor bugs.
 yarn start
 ```
 
+Then visit [http://localhost:8089](http://localhost:8089)
+
 ## Working Demo
 
 [https://tuqire.github.io/text-stars/](https://tuqire.github.io/text-stars/)
