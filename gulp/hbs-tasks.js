@@ -3,7 +3,7 @@ const handlebars = require('gulp-compile-handlebars');
 const rename = require('gulp-rename');
 const htmlmin = require('gulp-htmlmin');
 
-const { src, dest } = require('../config');
+const { src, dest, gitPortfolioOutput } = require('../config');
 
 function compileHandlebars(compress = false) {
 	gulp.src([`${src}/hbs/*.hbs`])
@@ -16,7 +16,8 @@ function compileHandlebars(compress = false) {
     .pipe(htmlmin({
 			collapseWhitespace: compress
 		}))
-    .pipe(gulp.dest('dest'));
+    .pipe(gulp.dest('dest'))
+    .pipe(gulp.dest(`../${gitPortfolioOutput}`));
 }
 
 gulp.task('build:hbs', () => {
