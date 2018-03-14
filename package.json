@@ -1,9 +1,14 @@
 {
-  "name": "tuqire-site",
-  "version": "1.5.1",
-  "description": "Tuqire Hussain's Portfolio Site",
-  "main": "index.js",
-  "author": "Tuqire Hussain",
+  "name": "text-stars",
+  "version": "0.1.0",
+  "description": "Tuqire Hussain's Text Stars project",
+  "main": "src/js/main.js",
+  "author": "Tuqire hussain <me@tuqire.com> (http://www.tuqire.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tuqire/text-stars/issues"
+  },
+  "homepage": "https://github.com/tuqire/text-stars#readme",
   "scripts": {
     "start": "gulp server",
     "watch": "gulp watch",
