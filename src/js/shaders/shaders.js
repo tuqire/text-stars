@@ -31,6 +31,7 @@ const fragmentShader = `
 
 		vec4 colour = texture2D(tColour, vUv).rgba;
 
+		gl_FragColor = setFragVal(colour);
 		gl_FragColor = distanceTravelledRatio <= 0.3 ? (colour / textColourDivider) : setFragVal(colour);
 		gl_FragColor = gl_FragColor * texture2D(starImg, gl_PointCoord);
 	}
@@ -65,10 +66,6 @@ const vertexShader = `
 		// if distanceTravelled > 0.0 then this particle has moved from default position and therefore is a text star
 		float size = texture2D(tSize, vUv).a;
 		size = distanceTravelled > 0.0 ? mix(size, size * finalTextSizeMultiplier, distanceTravelledRatio > 1.0 ? 1.0 : distanceTravelledRatio) : size;
-
-		// when no img just use this
-		// float size = texture2D(tSize, vUv).a;
-		// size = distanceTravelled > 0.0 ? mix(size, size * textSizeMultiplier, distanceTravelledRatio > 1.0 ? 1.0 : distanceTravelledRatio) : size;
 
 		vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
 		gl_PointSize = size * (sizeMultiplierForScreen / -mvPosition.z);
