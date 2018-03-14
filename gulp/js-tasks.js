@@ -1,8 +1,9 @@
 const gulp = require('gulp');
 const gutil = require('gulp-util');
+const path = require('path');
 const webpack = require('webpack');
 const webpackConfig = require('../webpack.config.js');
-const { src, dest } = require('../config');
+const { src, dest, gitPortfolioOutput } = require('../config');
 const dependencies = require('../package.json').dependencies;
 
 const prodConfig = Object.create(webpackConfig);
@@ -32,7 +33,16 @@ gulp.task('build:js', (callback) => {
 			colors: true
 		}));
 
-		callback();
+		prodConfig.output.path = path.resolve(__dirname, '../../', gitPortfolioOutput, 'assets', 'js');
+
+		webpack(prodConfig, (err, stats) => {
+			if(err) throw new gutil.PluginError('build-prod-git', err);
+			gutil.log('[build-prod]', stats.toString({
+				colors: true
+			}));
+
+			callback();
+		});
 	});
 });
 
