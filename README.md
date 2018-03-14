@@ -1,12 +1,16 @@
-# Text Stars
+# WEBGL Text Stars
 
-This project allows the user to type text and see the stars on the screen formulate them. Still beta.
+This project allows the user to type text and see the stars on the screen formulate them. Built using `THREE.js`, and `GPGPU`.
+
+Still in beta with minor bugs.
 
 ## Run locally
 
 ```bash
 yarn start
 ```
+
+Then visit [http://localhost:8089](http://localhost:8089)
 
 ## Working Demo
 
@@ -16,6 +20,8 @@ yarn start
 
 1. Fix flickering particles bug
 2. Fix grid visibility bug
+
+* If anyone can help me with these issues, please feel free to contribute!
 
 ## Contributers
 
