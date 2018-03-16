@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const sizeSimulationFragmentShader = `
 	/** generates a random number between 0 and 1 **/
 	highp float rand(vec2 co) {
@@ -57,7 +59,7 @@ const sizeSimulationFragmentShader = `
 		// write new size out
 		gl_FragColor = vec4(0.0, 0.0, 0.0, getSize());
 	}
-`;
+`
 
 const sizeSimulationVertexShader = `
 	// this value stores the texture coordinates the data for this vertex is stored in
@@ -67,9 +69,9 @@ const sizeSimulationVertexShader = `
 	  vUv = uv;
 		gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
 	}
-`;
+`
 
 export {
-	sizeSimulationFragmentShader,
-	sizeSimulationVertexShader
-};
+  sizeSimulationFragmentShader,
+  sizeSimulationVertexShader
+}

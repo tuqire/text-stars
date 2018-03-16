@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const positionSimulationFragmentShader = `
 	// this is the texture position the data for this particle is stored in
 	varying vec2 vUv;
@@ -61,7 +63,7 @@ const positionSimulationFragmentShader = `
 		// write new positions out
 		gl_FragColor = vec4(position, isTextParticle);
 	}
-`;
+`
 
 const positionSimulationVertexShader = `
 	// this value stores the texture coordinates the data for this vertex is stored in
@@ -71,9 +73,9 @@ const positionSimulationVertexShader = `
 	  vUv = uv;
 		gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
 	}
-`;
+`
 
 export {
-	positionSimulationFragmentShader,
-	positionSimulationVertexShader
-};
+  positionSimulationFragmentShader,
+  positionSimulationVertexShader
+}
