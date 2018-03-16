@@ -1,53 +1,54 @@
 export default class Renderer {
-	constructor({
-		alpha = true,
-		pixelRatio = window.devicePixelRatio,
-		width = window.innerWidth,
-		height =  window.innerHeight,
-		container
-	}) {
-		this.renderer = new THREE.WebGLRenderer({ alpha });
-		const gl = this.renderer.context;
-  	gl.enable(gl.BLEND);
-  	gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+  constructor ({
+    alpha = true,
+    pixelRatio = window.devicePixelRatio,
+    width = window.innerWidth,
+    height = window.innerHeight,
+    container
+  }) {
+    this.renderer = new THREE.WebGLRenderer({ alpha })
+    const gl = this.renderer.context
 
-		this.setPixelRatio(pixelRatio);
+    gl.enable(gl.BLEND)
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
 
-		this.setSize(width, height);
+    this.setPixelRatio(pixelRatio)
 
-		container.appendChild(this.getDomElement());
-		window.addEventListener('resize', this.onWindowResize.bind(this));
-	}
+    this.setSize(width, height)
 
-	getDomElement() {
-		return this.renderer.domElement;
-	}
+    container.appendChild(this.getDomElement())
+    window.addEventListener('resize', this.onWindowResize.bind(this))
+  }
 
-	onWindowResize() {
-		const WIDTH = window.innerWidth;
-		const HEIGHT = window.innerHeight;
+  getDomElement () {
+    return this.renderer.domElement
+  }
 
-		this.renderer.setSize(WIDTH, HEIGHT);
-	}
+  onWindowResize () {
+    const WIDTH = window.innerWidth
+    const HEIGHT = window.innerHeight
 
-	setPixelRatio(pixelRatio) {
-		this.renderer.setPixelRatio(pixelRatio);
-	}
+    this.renderer.setSize(WIDTH, HEIGHT)
+  }
 
-	setSize(w, h) {
-		this.renderer.setSize(w, h);
-	}
+  setPixelRatio (pixelRatio) {
+    this.renderer.setPixelRatio(pixelRatio)
+  }
 
-	render({
-		scene,
-		camera,
-		renderTarget = null,
-		force = false
-	} = {}) {
-		this.renderer.render(scene, camera, renderTarget, force);
-	}
+  setSize (w, h) {
+    this.renderer.setSize(w, h)
+  }
 
-	get() {
-		return this.renderer;
-	}
+  render ({
+    scene,
+    camera,
+    renderTarget = null,
+    force = false
+  } = {}) {
+    this.renderer.render(scene, camera, renderTarget, force)
+  }
+
+  get () {
+    return this.renderer
+  }
 }

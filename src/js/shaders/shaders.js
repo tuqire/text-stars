@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const fragmentShader = `
 	uniform sampler2D tDefaultPosition;
 	uniform sampler2D tPosition;
@@ -35,7 +37,7 @@ const fragmentShader = `
 		gl_FragColor = distanceTravelledRatio <= 0.3 ? (colour / textColourDivider) : setFragVal(colour);
 		gl_FragColor = gl_FragColor * texture2D(starImg, gl_PointCoord);
 	}
-`;
+`
 
 const vertexShader = `
 	uniform sampler2D tDefaultPosition;
@@ -71,9 +73,9 @@ const vertexShader = `
 		gl_PointSize = size * (sizeMultiplierForScreen / -mvPosition.z);
 		gl_Position = projectionMatrix * mvPosition;
 	}
-`;
+`
 
 export {
-	fragmentShader,
-	vertexShader
-};
+  fragmentShader,
+  vertexShader
+}
