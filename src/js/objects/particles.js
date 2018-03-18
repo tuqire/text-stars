@@ -10,7 +10,7 @@ export default class Particles {
     configUniforms = {
       color: { value: new THREE.Color(0xffffff) },
       sizeMultiplierForScreen: { value: (window.innerHeight * window.devicePixelRatio) / 2 },
-      starImg: { value: new THREE.TextureLoader().load('assets/images/star.png') }
+      starImg: { value: new THREE.TextureLoader().load('images/star.png') }
     },
     blending = THREE.AdditiveBlending,
     transparent = true,
