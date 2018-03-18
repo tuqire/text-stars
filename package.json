@@ -10,17 +10,17 @@
   },
   "homepage": "https://github.com/tuqire/text-stars#readme",
   "scripts": {
+    "build": "NODE_ENV='production' webpack",
+    "build:github": "NODE_ENV='production' GITHUB='true' webpack",
     "lint": "eslint src && eslint webpack.config.js && eslint gulp",
-    "start": "gulp build && gulp server",
-    "watch": "gulp watch",
-    "build": "gulp build",
-    "build:github": "NODE_ENV='production' gulp build"
+    "start": "webpack-dev-server",
+    "watch": "gulp watch"
   },
   "dependencies": {
     "detector-webgl": "^2.0.0",
-    "js-media-queries": "^1.0.1",
+    "js-media-queries": "^1.1.0",
     "three": "^0.85.0",
-    "three.js-fbo": "^1.4.3"
+    "three.js-fbo": "^1.5.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -29,7 +29,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
-    "bootstrap-sass": "^3.3.7",
+    "copy-webpack-plugin": "^4.5.1",
     "eslint": "^4.18.2",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-babel": "^4.1.1",
@@ -38,16 +38,7 @@
     "eslint-plugin-node": "^6.0.0",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
-    "gulp": "^3.9.1",
-    "gulp-changed": "^2.0.0",
-    "gulp-compile-handlebars": "^0.6.1",
-    "gulp-flatten": "^0.3.1",
-    "gulp-htmlmin": "^3.0.0",
-    "gulp-imagemin": "^3.4.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-sass": "^3.1.0",
-    "gulp-util": "^3.0.8",
-    "handlebars": "^4.0.11",
+    "handlebars-webpack-plugin": "^1.4.1",
     "json-loader": "^0.5.7",
     "path": "^0.12.7",
     "webpack": "^3.8.1",
