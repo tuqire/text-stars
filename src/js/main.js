@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const scene = new Scene()
     const particles = new Particles({
       renderer,
-      skew: 10,
       hoverDist: 0.04,
       hoverSizeInc: 0.01,
       hoverMaxSizeMultiplier: 3,
@@ -20,8 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
       textPositionMultiplier: 6,
       minSize: 0.02,
       maxSize: 0.05,
-      sizeDif: 2,
-      incSize: 0.0001,
+      sizeRange: 0.015,
+      skew: 5,
+      incSize: 0.00015,
       numParticles: 150000,
       radius: 4,
       topSpeed: 1,

@@ -76,6 +76,6 @@ module.exports = env => ({
   plugins,
   devServer: {
     contentBase: path.join(__dirname, 'dest'),
-    port: 8085
+    port: 8089
   }
 })
