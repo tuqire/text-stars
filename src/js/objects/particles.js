@@ -22,7 +22,7 @@ export default class Particles {
     radius = 100, // radius of outer particle
 
     // used to define and animate sizes
-    sizeDif = 0.5, // the amount the size is allowed to fluxuate in animation
+    sizeRange = 0.5, // the amount the size is allowed to fluxuate in animation
     minSize = 1,
     maxSize = 3,
     incSize = 0.01, // the amount the size is increased / decreased per frame
@@ -48,7 +48,7 @@ export default class Particles {
     this.skew = skew // skews the median size
 
     // used to define star glinting
-    this.sizeDif = sizeDif
+    this.sizeRange = sizeRange
     this.minSize = minSize
     this.maxSize = maxSize
     this.incSize = incSize
@@ -107,7 +107,7 @@ export default class Particles {
 
         mouse: { value: new THREE.Vector3(10000, 10000, 10000) },
 
-        sizeDif: { type: 'f', value: this.sizeDif },
+        sizeRange: { type: 'f', value: this.sizeRange },
         incSize: { type: 'f', value: this.incSize },
 
         hoverDist: { type: 'f', value: this.hoverDist },
@@ -289,36 +289,24 @@ export default class Particles {
     let r
     let g
     let b
+    let a = 0.3 + (Math.random() * 0.7)
 
-    if (randomVal > 0.7) {
-      const highRandomVal = Math.ceil((1 - randomVal) * 10)
-
-      switch (highRandomVal) {
-        case 3:
-          r = randomVal * 2.1
-          g = randomVal * 1.6
-          b = randomVal * 1.2
-          break
-
-        case 2:
-          r = randomVal * 1.6
-          g = randomVal * 4
-          b = randomVal * 4
-          break
-
-        case 1:
-          r = randomVal * 3
-          g = randomVal * 3
-          b = randomVal * 1.6
-          break
-      }
+    if (randomVal > 0.98) {
+      r = 1.5
+      g = randomVal
+      b = randomVal
+      a *= 2.5
+    } else if (randomVal > 0.7) {
+      r = 1.5
+      g = 1.5
+      b = randomVal
     } else {
-      r = randomVal * 1.6
-      g = randomVal * 1.6
-      b = randomVal * 1.2
+      r = randomVal * 1.5
+      g = randomVal * 1.5
+      b = randomVal * 1.4
     }
 
-    return [r, g, b, randomVal]
+    return [r, g, b, a]
   }
 
   update () {
