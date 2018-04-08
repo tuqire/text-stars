@@ -37,7 +37,6 @@ export default class Particles {
     animationFrames = [],
     topSpeed = 0.07,
     acceleration = 0.01,
-    textColourDivider = 2,
     textSizeMultiplier = 2,
     textPositionMultiplier = 2
   }) {
@@ -61,7 +60,6 @@ export default class Particles {
     // use to define moving particles
     this.topSpeed = topSpeed
     this.acceleration = acceleration
-    this.textColourDivider = textColourDivider
     this.textSizeMultiplier = textSizeMultiplier
     this.textPositionMultiplier = textPositionMultiplier
     this.animationFrames = animationFrames
@@ -125,7 +123,6 @@ export default class Particles {
       tText: { type: 't', value: 0 },
       tPosition: { type: 't', value: this.positionFBO.targets[0] },
       tSize: { type: 't', value: this.sizeFBO.targets[0] },
-      textColourDivider: { type: 'f', value: this.textColourDivider },
       textSizeMultiplier: { type: 'f', value: this.textSizeMultiplier },
 
       tColour: { type: 't',
@@ -207,11 +204,7 @@ export default class Particles {
       return
     }
 
-    if (key === 'Backspace') {
-      this.text = this.text.slice(0, -1)
-    } else {
-      this.text += key
-    }
+    this.text = key === 'Backspace' ? this.text.slice(0, -1) : this.text + key
 
     textCanvas.width = textCanvas.height = Math.sqrt(this.numParticles) * canvasDepth
 
@@ -272,6 +265,7 @@ export default class Particles {
 
   getColours () {
     const colours = new Float32Array(this.numParticles * 4)
+
     for (let i = 0, i4 = 0; i < this.numParticles; i++, i4 += 4) {
       const colour = this.calcColour()
 
@@ -285,28 +279,34 @@ export default class Particles {
   }
 
   calcColour () {
-    const randomVal = Math.random()
-    let r
-    let g
-    let b
-    let a = 0.3 + (Math.random() * 0.7)
+    const getColor = (r, g, b, a) => [r / 255, g / 255, b / 255, a]
+    const randomVal = Math.ceil(Math.random() * 10)
 
-    if (randomVal > 0.98) {
-      r = 1.5
-      g = randomVal
-      b = randomVal
-      a *= 2.5
-    } else if (randomVal > 0.7) {
-      r = 1.5
-      g = 1.5
-      b = randomVal
-    } else {
-      r = randomVal * 1.5
-      g = randomVal * 1.5
-      b = randomVal * 1.4
+    switch (randomVal) {
+      case 1:
+        return getColor(155, 176, 255, 1)
+
+      case 2:
+        return getColor(170, 191, 255, 1)
+
+      case 3:
+        return getColor(202, 215, 255, 1)
+
+      case 4:
+        return getColor(248, 247, 255, 1)
+
+      case 5:
+        return getColor(255, 244, 234, 1)
+
+      case 6:
+        return getColor(255, 210, 161, 1)
+
+      case 7:
+        return getColor(255, 204, 111, 1)
+
+      default:
+        return getColor(255, 255, 255, 1)
     }
-
-    return [r, g, b, a]
   }
 
   update () {
