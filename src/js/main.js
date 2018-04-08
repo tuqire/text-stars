@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
       textPositionMultiplier: 5.5,
       minSize: 0.015,
       maxSize: 0.03,
-      sizeRange: 0.005,
+      sizeRange: 0.003,
       skew: 35,
       incSize: 0.00005,
       numParticles: 150000,
