@@ -265,6 +265,7 @@ export default class Particles {
 
   getColours () {
     const colours = new Float32Array(this.numParticles * 4)
+
     for (let i = 0, i4 = 0; i < this.numParticles; i++, i4 += 4) {
       const colour = this.calcColour()
 
