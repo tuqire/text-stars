@@ -1,5 +1,7 @@
 import isWebglEnabled from 'detector-webgl'
+
 import Camera from './io/camera'
+import GUI from './io/gui'
 import Renderer from './io/renderer'
 import Scene from './objects/scene'
 import Particles from './objects/particles'
@@ -11,20 +13,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const scene = new Scene()
     const particles = new Particles({
       renderer,
-      hoverDist: 0.04,
-      hoverSizeInc: 0.002,
-      hoverMaxSizeMultiplier: 1.3,
-      textSizeMultiplier: 690,
-      textPositionMultiplier: 5.5,
+      numParticles: 150000,
+      radius: 4,
       minSize: 0.015,
       maxSize: 0.03,
       sizeRange: 0.003,
+      sizeInc: 0.00005,
       skew: 35,
-      incSize: 0.00005,
-      numParticles: 150000,
-      radius: 4,
+      hoverDist: 0.04,
+      hoverSizeInc: 0.002,
+      hoverMaxSizeMultiplier: 1.3,
       topSpeed: 1,
-      acceleration: 0.0001
+      acceleration: 0.0001,
+      textSizeMultiplier: 690,
+      textPositionMultiplier: 5.5,
+      brightness: 0.9,
+      opacity: 1
     })
     const camera = new Camera({
       particles,
@@ -34,6 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
         z: 4.5
       }
     })
+
+    const gui = new GUI({ particles }) // eslint-disable-line
 
     const init = () => {
       scene.add(particles.get())

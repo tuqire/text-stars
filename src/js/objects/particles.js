@@ -6,7 +6,6 @@ import { vertexShader, fragmentShader } from '../shaders/shaders'
 
 export default class Particles {
   constructor ({
-    numParticles = 10000,
     configUniforms = {
       color: { value: new THREE.Color(0xffffff) },
       sizeMultiplierForScreen: { value: (window.innerHeight * window.devicePixelRatio) / 2 },
@@ -19,38 +18,49 @@ export default class Particles {
 
     renderer,
 
+    // background colors
+    bgColorTop = '#000f23',
+    bgColorBottom = '#00071b',
+
+    numParticles = 10000,
     radius = 100, // radius of outer particle
 
     // used to define and animate sizes
-    sizeRange = 0.5, // the amount the size is allowed to fluxuate in animation
     minSize = 1,
     maxSize = 3,
-    incSize = 0.01, // the amount the size is increased / decreased per frame
+    sizeRange = 0.5, // the amount the size is allowed to fluxuate in animation
+    sizeInc = 0.01, // the amount the size is increased / decreased per frame
+    skew = 1,
 
     // used to define raycasting boundries
     hoverDist = 10,
     hoverSizeInc = 0.05,
     hoverMaxSizeMultiplier = 5,
-    skew = 1,
 
     // values to use when stars form text
-    animationFrames = [],
     topSpeed = 0.07,
     acceleration = 0.01,
     textSizeMultiplier = 2,
-    textPositionMultiplier = 2
+    textPositionMultiplier = 2,
+
+    // particle colours
+    brightness = 1,
+    opacity = 1
   }) {
     this.renderer = renderer
 
+    this.bgColorTop = bgColorTop
+    this.bgColorBottom = bgColorBottom
+
     this.numParticles = numParticles
     this.radius = radius
-    this.skew = skew // skews the median size
 
     // used to define star glinting
-    this.sizeRange = sizeRange
     this.minSize = minSize
     this.maxSize = maxSize
-    this.incSize = incSize
+    this.sizeRange = sizeRange
+    this.sizeInc = sizeInc
+    this.skew = skew // skews the median size
 
     // used to define mouse interaction animation
     this.hoverDist = hoverDist
@@ -62,7 +72,10 @@ export default class Particles {
     this.acceleration = acceleration
     this.textSizeMultiplier = textSizeMultiplier
     this.textPositionMultiplier = textPositionMultiplier
-    this.animationFrames = animationFrames
+
+    // use to define particle colours
+    this.brightness = brightness
+    this.opacity = opacity
 
     // used to define mouse interaction
     this.windowHalfX = window.innerWidth / 2
@@ -70,8 +83,8 @@ export default class Particles {
 
     // height and width that set up a texture in memory
     // this texture is used to store particle position values
-    const tHeight = Math.ceil(Math.sqrt(this.numParticles))
-    const tWidth = tHeight
+    const tHeight = this.tHeight = Math.ceil(Math.sqrt(this.numParticles))
+    const tWidth = this.tWidth = tHeight
     this.numParticles = tWidth * tHeight
 
     this.positions = new Float32Array(this.numParticles * 3)
@@ -106,7 +119,7 @@ export default class Particles {
         mouse: { value: new THREE.Vector3(10000, 10000, 10000) },
 
         sizeRange: { type: 'f', value: this.sizeRange },
-        incSize: { type: 'f', value: this.incSize },
+        sizeInc: { type: 'f', value: this.sizeInc },
 
         hoverDist: { type: 'f', value: this.hoverDist },
         hoverSizeInc: { type: 'f', value: this.hoverSizeInc },
@@ -125,14 +138,10 @@ export default class Particles {
       tSize: { type: 't', value: this.sizeFBO.targets[0] },
       textSizeMultiplier: { type: 'f', value: this.textSizeMultiplier },
 
-      tColour: { type: 't',
-        value: createDataTexture({
-          data: this.getColours(),
-          tWidth,
-          tHeight,
-          format: this.positionFBO.format,
-          filterType: this.positionFBO.filterType
-        }) }
+      tColour: {
+        type: 't',
+        value: this.getColours()
+      }
     })
 
     this.material = new THREE.ShaderMaterial({
@@ -159,17 +168,28 @@ export default class Particles {
     this.particles.frustumCulled = false
 
     this.text = ''
-    document.onkeydown = this.onTextInput.bind(this)
 
+    document.onkeydown = this.onTextInput.bind(this)
     window.addEventListener('resize', this.onWindowResize.bind(this))
-    // document.addEventListener('touchmove', this.onMouseMove.bind(this), false);
     document.addEventListener('mousemove', this.onMouseMove.bind(this), false)
   }
 
-  setAnimation () {
-    this.animationFrames.forEach(animationFrame =>
-      setTimeout(() => this.createCanvasAnimation(animationFrame), animationFrame.animationDelay || 0)
-    )
+  get bgColorTop () {
+    return this._bgColorTop
+  }
+
+  set bgColorTop (newVal) {
+    this._bgColorTop = newVal
+    document.getElementsByTagName('body')[0].style.background = `linear-gradient(${this._bgColorTop}, ${this._bgColorBottom})`
+  }
+
+  get bgColorBottom () {
+    return this._bgColorBottom
+  }
+
+  set bgColorBottom (newVal) {
+    this._bgColorBottom = newVal
+    document.getElementsByTagName('body')[0].style.background = `linear-gradient(${this._bgColorTop}, ${this._bgColorBottom})`
   }
 
   onWindowResize () {
@@ -275,37 +295,49 @@ export default class Particles {
       colours[i4 + 3] = colour[3]
     }
 
-    return colours
+    return createDataTexture({
+      data: colours,
+      tWidth: this.tWidth,
+      tHeight: this.tHeight,
+      format: this.positionFBO.format,
+      filterType: this.positionFBO.filterType
+    })
   }
 
   calcColour () {
-    const getColor = (r, g, b, a) => [r / 255, g / 255, b / 255, a]
     const randomVal = Math.ceil(Math.random() * 10)
+
+    const getColor = (r, g, b, a) => [
+      this.brightness * r / 255,
+      this.brightness * g / 255,
+      this.brightness * b / 255,
+      this.opacity
+    ]
 
     switch (randomVal) {
       case 1:
-        return getColor(155, 176, 255, 1)
+        return getColor(155, 176, 255)
 
       case 2:
-        return getColor(170, 191, 255, 1)
+        return getColor(170, 191, 255)
 
       case 3:
-        return getColor(202, 215, 255, 1)
+        return getColor(202, 215, 255)
 
       case 4:
-        return getColor(248, 247, 255, 1)
+        return getColor(248, 247, 255)
 
       case 5:
-        return getColor(255, 244, 234, 1)
+        return getColor(255, 244, 234)
 
       case 6:
-        return getColor(255, 210, 161, 1)
+        return getColor(255, 210, 161)
 
       case 7:
-        return getColor(255, 204, 111, 1)
+        return getColor(255, 204, 111)
 
       default:
-        return getColor(255, 255, 255, 1)
+        return getColor(255, 255, 255)
     }
   }
 
@@ -322,5 +354,26 @@ export default class Particles {
 
   setCameraZ (newCameraZ) {
     this.cameraZ = newCameraZ
+  }
+
+  updateColours () {
+    this.material.uniforms.tColour.value = this.getColours()
+  }
+
+  updateSizes () {
+    this.sizeFBO.simulationShader.uniforms.sizeRange.value = this.sizeRange
+    this.sizeFBO.simulationShader.uniforms.sizeInc.value = this.sizeInc
+    this.sizeFBO.setTextureUniform('tDefaultSize', this.getSizes())
+  }
+
+  updateParticleVars () {
+    this.material.uniforms.textSizeMultiplier.value = this.textSizeMultiplier
+    this.positionFBO.simulationShader.uniforms.textPositionMultiplier.value = this.textPositionMultiplier
+    this.positionFBO.simulationShader.uniforms.topSpeed.value = this.topSpeed
+    this.positionFBO.simulationShader.uniforms.acceleration.value = this.acceleration
+
+    this.sizeFBO.simulationShader.uniforms.hoverDist.value = this.hoverDist
+    this.sizeFBO.simulationShader.uniforms.hoverSizeInc.value = this.hoverSizeInc
+    this.sizeFBO.simulationShader.uniforms.hoverMaxSizeMultiplier.value = this.hoverMaxSizeMultiplier
   }
 }

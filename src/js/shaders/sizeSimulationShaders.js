@@ -20,7 +20,7 @@ const sizeSimulationFragmentShader = `
 	uniform sampler2D tDefaultSize;
 
 	uniform vec3 mouse;
-	uniform float incSize;
+	uniform float sizeInc;
 	uniform float sizeRange;
 
 	uniform float hoverDist;
@@ -36,11 +36,11 @@ const sizeSimulationFragmentShader = `
 		if (size == 0.0) {
 			size = defaultSize;
 		} else if (prevSize == 0.0 || size == prevSize) {
-			size = rand(vUv) >= 0.5 ? size + incSize : size - incSize;
+			size = rand(vUv) >= 0.5 ? size + sizeInc : size - sizeInc;
 		} else if (size < (defaultSize - sizeRange)) {
-			size += incSize;
+			size += sizeInc;
 		} else if (size > (defaultSize + sizeRange)) {
-			size -= incSize;
+			size -= sizeInc;
 		} else {
 			size += size - prevSize;
 		}
