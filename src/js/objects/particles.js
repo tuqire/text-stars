@@ -1,5 +1,6 @@
 import FBO from 'three.js-fbo'
 import { createDataTexture } from '../utils'
+import { fonts } from '../constants'
 import { positionSimulationVertexShader, positionSimulationFragmentShader } from '../shaders/positionSimulationShaders'
 import { sizeSimulationVertexShader, sizeSimulationFragmentShader } from '../shaders/sizeSimulationShaders'
 import { vertexShader, fragmentShader } from '../shaders/shaders'
@@ -38,6 +39,8 @@ export default class Particles {
     hoverMaxSizeMultiplier = 5,
 
     // values to use when stars form text
+    font = 'arial',
+    fontSize = 100,
     topSpeed = 0.07,
     acceleration = 0.01,
     textSizeMultiplier = 2,
@@ -68,6 +71,8 @@ export default class Particles {
     this.hoverMaxSizeMultiplier = hoverMaxSizeMultiplier
 
     // use to define moving particles
+    this.font = font
+    this.fontSize = fontSize
     this.topSpeed = topSpeed
     this.acceleration = acceleration
     this.textSizeMultiplier = textSizeMultiplier
@@ -217,27 +222,13 @@ export default class Particles {
   onTextInput ({
     key = ''
   }) {
-    const canvasDepth = 1
-    const textCanvas = document.createElement('canvas')
-
     if (key !== 'Backspace' && (key.length !== 1 || !key.match(/[a-z ]?/i))) {
       return
     }
 
     this.text = key === 'Backspace' ? this.text.slice(0, -1) : this.text + key
 
-    textCanvas.width = textCanvas.height = Math.sqrt(this.numParticles) * canvasDepth
-
-    const canvasCenterV = textCanvas.height / 2
-    const ctx = textCanvas.getContext('2d', {
-      alpha: false
-    })
-
-    ctx.font = `80px bold serif`
-    ctx.fillStyle = 'white'
-    ctx.fillText(this.text, 0, canvasCenterV, textCanvas.width)
-
-    this.setTextTexture(textCanvas)
+    this.updateTextTexture()
   }
 
   getPositions () {
@@ -354,6 +345,24 @@ export default class Particles {
 
   setCameraZ (newCameraZ) {
     this.cameraZ = newCameraZ
+  }
+
+  updateTextTexture () {
+    const canvasDepth = 1
+    const textCanvas = document.createElement('canvas')
+
+    textCanvas.width = textCanvas.height = Math.sqrt(this.numParticles) * canvasDepth
+
+    const canvasCenterV = (textCanvas.height / 2) + (this.fontSize / 2)
+    const ctx = textCanvas.getContext('2d', {
+      alpha: false
+    })
+
+    ctx.font = `${this.fontSize}px ${fonts[this.font]}`
+    ctx.fillStyle = 'white'
+    ctx.fillText(this.text, 0, canvasCenterV, textCanvas.width)
+
+    this.setTextTexture(textCanvas)
   }
 
   updateColours () {

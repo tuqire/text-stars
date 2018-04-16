@@ -1,4 +1,5 @@
 import DatGUI from 'dat-gui'
+import { fonts } from '../constants'
 
 export default class GUI {
   constructor ({
@@ -25,19 +26,25 @@ export default class GUI {
 
   addTextControls (particles) {
     this.gui
+      .add(particles, 'font', Object.keys(fonts))
+      .onFinishChange(() => {
+        particles.updateTextTexture()
+      })
+
+    this.gui
+      .add(particles, 'fontSize')
+      .min(10)
+      .max(200)
+      .step(5)
+      .onFinishChange(() => {
+        particles.updateTextTexture()
+      })
+
+    this.gui
       .add(particles, 'textSizeMultiplier')
       .min(1)
       .max(1000)
       .step(10)
-      .onFinishChange(() => {
-        particles.updateParticleVars()
-      })
-
-    this.gui
-      .add(particles, 'textPositionMultiplier')
-      .min(1)
-      .max(10)
-      .step(0.1)
       .onFinishChange(() => {
         particles.updateParticleVars()
       })

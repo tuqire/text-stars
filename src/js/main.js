@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const scene = new Scene()
     const particles = new Particles({
       renderer,
-      numParticles: 150000,
+      numParticles: 120000,
       radius: 4,
       minSize: 0.015,
       maxSize: 0.03,
@@ -22,10 +22,12 @@ document.addEventListener('DOMContentLoaded', () => {
       skew: 35,
       hoverDist: 0.04,
       hoverSizeInc: 0.002,
-      hoverMaxSizeMultiplier: 1.3,
+      hoverMaxSizeMultiplier: 1.7,
+      font: 'arial',
+      fontSize: 80,
       topSpeed: 1,
       acceleration: 0.0001,
-      textSizeMultiplier: 690,
+      textSizeMultiplier: 600,
       textPositionMultiplier: 5.5,
       brightness: 0.9,
       opacity: 1
