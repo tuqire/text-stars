@@ -42,7 +42,7 @@ const vertexShader = `
 
 		// if distanceTravelled > 0.0 then this particle has moved from default position and therefore is a text star
 		float size = texture2D(tSize, vUv).a;
-		float textSize = size * size * textSizeMultiplier; // multiply star size against itself to create size range
+		float textSize = size * size * textSizeMultiplier; // multiply star size against itself to create a size range when a text-star
 		size = distanceTravelled > 0.0 ? mix(size, textSize, distanceTravelledRatio > 1.0 ? 1.0 : distanceTravelledRatio) : size;
 
 		vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
