@@ -41,6 +41,12 @@ export default class GUI {
       })
 
     this.gui
+      .add(particles, 'textAlign', ['left', 'center'])
+      .onFinishChange(() => {
+        particles.updateTextTexture()
+      })
+
+    this.gui
       .add(particles, 'textSizeMultiplier')
       .min(1)
       .max(1000)

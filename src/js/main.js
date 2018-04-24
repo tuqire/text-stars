@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
       fontSize: 80,
       topSpeed: 1,
       acceleration: 0.0001,
+      textAlign: 'left',
       textSizeMultiplier: 600,
       textPositionMultiplier: 5.5,
       brightness: 0.9,

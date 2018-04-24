@@ -43,6 +43,7 @@ export default class Particles {
     fontSize = 100,
     topSpeed = 0.07,
     acceleration = 0.01,
+    textAlign = 'left',
     textSizeMultiplier = 2,
     textPositionMultiplier = 2,
 
@@ -75,6 +76,7 @@ export default class Particles {
     this.fontSize = fontSize
     this.topSpeed = topSpeed
     this.acceleration = acceleration
+    this.textAlign = textAlign
     this.textSizeMultiplier = textSizeMultiplier
     this.textPositionMultiplier = textPositionMultiplier
 
@@ -348,19 +350,18 @@ export default class Particles {
   }
 
   updateTextTexture () {
-    const canvasDepth = 1
     const textCanvas = document.createElement('canvas')
+    const canvasDepth = 1
 
     textCanvas.width = textCanvas.height = Math.sqrt(this.numParticles) * canvasDepth
 
-    const canvasCenterV = (textCanvas.height / 2) + (this.fontSize / 2)
-    const ctx = textCanvas.getContext('2d', {
-      alpha: false
-    })
+    const canvasCenter = (textCanvas.height / 2)
+    const ctx = textCanvas.getContext('2d', { alpha: false })
 
     ctx.font = `${this.fontSize}px ${fonts[this.font]}`
     ctx.fillStyle = 'white'
-    ctx.fillText(this.text, 0, canvasCenterV, textCanvas.width)
+    ctx.textAlign = this.textAlign
+    ctx.fillText(this.text, this.textAlign === 'left' ? 0 : canvasCenter, canvasCenter + (this.fontSize / 2), textCanvas.width)
 
     this.setTextTexture(textCanvas)
   }
