@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const scene = new Scene()
     const particles = new Particles({
       renderer,
-      numParticles: 120000,
+      numParticles: window.matchMedia('(max-width: 480px)').matches ? 40000 : 120000,
       radius: 4,
       minSize: 0.015,
       maxSize: 0.03,
