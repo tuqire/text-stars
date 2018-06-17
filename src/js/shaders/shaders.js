@@ -9,10 +9,11 @@ const fragmentShader = `
 
 	void main() {
 		vec3 goal = vec3((vUv - 0.5) * 4.0, 0);
-		vec3 position = texture2D(tPosition, vUv).xyz;
 		vec4 colour = texture2D(tColour, vUv).rgba;
-		float isTextColor = texture2D(tPosition, vUv).a;
+		vec3 position = texture2D(tPosition, vUv).xyz;
+		float isTextParticle = texture2D(tPosition, vUv).a;
 
+		// gl_FragColor = isTextParticle == 1.0 ? colour * 1.2 : colour;
 		gl_FragColor = colour;
 		gl_FragColor = gl_FragColor * texture2D(starImg, gl_PointCoord);
 	}

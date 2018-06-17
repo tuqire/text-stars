@@ -21,7 +21,7 @@ const sizeSimulationFragmentShader = `
 
 	uniform vec3 mouse;
 	uniform float sizeInc;
-	uniform float sizeRange;
+	// uniform float sizeRange;
 
 	uniform float hoverDist;
 	uniform float hoverSizeInc;
@@ -32,6 +32,7 @@ const sizeSimulationFragmentShader = `
 		float defaultSize = texture2D(tDefaultSize, vUv).w;
 		float prevSize = texture2D(tPrev, vUv).w;
 		float size = texture2D(tCurr, vUv).w;
+		float sizeRange = defaultSize / 2.0;
 
 		if (size == 0.0) {
 			size = defaultSize;

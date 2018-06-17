@@ -304,6 +304,7 @@ export default class Particles {
       this.brightness * r / 255,
       this.brightness * g / 255,
       this.brightness * b / 255,
+      // Math.random()
       this.opacity
     ]
 
