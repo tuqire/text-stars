@@ -1,7 +1,7 @@
 import isWebglEnabled from 'detector-webgl'
-
+import Stats from 'stats.js'
 import Camera from './io/camera'
-import GUI from './io/gui'
+import Controls from './io/controls'
 import Renderer from './io/renderer'
 import Scene from './objects/scene'
 import Particles from './objects/particles'
@@ -41,10 +41,14 @@ document.addEventListener('DOMContentLoaded', () => {
         z: 4.5
       }
     })
-
-    const gui = new GUI({ particles }) // eslint-disable-line
+    const stats = new Stats()
 
     const init = () => {
+      new Controls({ particles }) // eslint-disable-line
+
+      stats.showPanel(0)
+      document.body.appendChild(stats.dom)
+
       scene.add(particles.get())
     }
 
@@ -54,12 +58,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const render = () => {
+      stats.begin()
+
       particles.update()
 
       renderer.render({
         scene: scene.get(),
         camera: camera.get()
       })
+
+      stats.end()
     }
 
     init()
