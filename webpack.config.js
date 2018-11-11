@@ -4,7 +4,7 @@ const HandlebarsPlugin = require('handlebars-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const dependencies = require('./package.json').dependencies
 
-const outputPath = process.env.GITHUB === 'true' ? path.resolve(__dirname, '..', 'tuqire.github', 'text-stars') : path.resolve(__dirname, 'dest')
+const outputPath = process.env.GITHUB === 'true' ? path.resolve(__dirname, '..', 'tuqire.github.io', 'text-stars') : path.resolve(__dirname, 'dest')
 
 const plugins = [
   new webpack.optimize.ModuleConcatenationPlugin(),
