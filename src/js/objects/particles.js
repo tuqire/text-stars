@@ -298,40 +298,14 @@ export default class Particles {
   }
 
   calcColour () {
-    const randomVal = Math.ceil(Math.random() * 10)
+    const randomVal = Math.random()
 
-    const getColor = (r, g, b, a) => [
-      this.brightness * r / 255,
-      this.brightness * g / 255,
-      this.brightness * b / 255,
-      this.opacity
-    ]
+    const r = randomVal < 0.9 ? randomVal * 1.6 : randomVal * 5
+    const g = randomVal > 0.1 ? randomVal * 1.6 : randomVal * 5
+    const b = randomVal > 0.1 ? randomVal * 1.3 : randomVal * 3.5
+    const a = randomVal
 
-    switch (randomVal) {
-      case 1:
-        return getColor(155, 176, 255)
-
-      case 2:
-        return getColor(170, 191, 255)
-
-      case 3:
-        return getColor(202, 215, 255)
-
-      case 4:
-        return getColor(248, 247, 255)
-
-      case 5:
-        return getColor(255, 244, 234)
-
-      case 6:
-        return getColor(255, 210, 161)
-
-      case 7:
-        return getColor(255, 204, 111)
-
-      default:
-        return getColor(255, 255, 255)
-    }
+    return [r, g, b, a]
   }
 
   update () {

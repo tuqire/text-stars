@@ -20,8 +20,6 @@ export default class Camera {
     this.setPosition(position)
     this.setUp(...this.up)
     this.setLookAt()
-
-    // window.addEventListener('resize', this.onWindowResize.bind(this));
   }
 
   onWindowResize () {
