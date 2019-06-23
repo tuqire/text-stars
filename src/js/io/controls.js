@@ -33,7 +33,7 @@ export default class Controls {
 
     this.gui
       .add(particles, 'fontSize')
-      .min(10)
+      .min(0)
       .max(200)
       .step(5)
       .onFinishChange(() => {
@@ -48,8 +48,8 @@ export default class Controls {
 
     this.gui
       .add(particles, 'textSizeMultiplier')
-      .min(1)
-      .max(1000)
+      .min(0)
+      .max(2000)
       .step(10)
       .onFinishChange(() => {
         particles.updateParticleVars()
@@ -57,18 +57,18 @@ export default class Controls {
 
     this.gui
       .add(particles, 'topSpeed')
-      .min(0.1)
+      .min(0)
       .max(10)
-      .step(0.1)
+      .step(0.005)
       .onFinishChange(() => {
         particles.updateParticleVars()
       })
 
     this.gui
       .add(particles, 'acceleration')
-      .min(0.00001)
-      .max(0.01)
-      .step(0.00001)
+      .min(0)
+      .max(0.001)
+      .step(0.0000001)
       .onFinishChange(() => {
         particles.updateParticleVars()
       })
@@ -87,7 +87,7 @@ export default class Controls {
     this.gui
       .add(particles, 'hoverSizeInc')
       .min(0)
-      .max(0.03)
+      .max(0.1)
       .step(0.001)
       .onFinishChange(() => {
         particles.updateParticleVars()
@@ -95,8 +95,8 @@ export default class Controls {
 
     this.gui
       .add(particles, 'hoverMaxSizeMultiplier')
-      .min(1)
-      .max(3)
+      .min(0)
+      .max(5)
       .step(0.05)
       .onFinishChange(() => {
         particles.updateParticleVars()
@@ -106,7 +106,7 @@ export default class Controls {
   addSizeControls (particles) {
     this.gui
       .add(particles, 'minSize')
-      .min(0.01)
+      .min(0)
       .max(0.04)
       .step(0.001)
       .onFinishChange(() => {
@@ -119,8 +119,8 @@ export default class Controls {
 
     this.gui
       .add(particles, 'maxSize')
-      .min(0.01)
-      .max(0.04)
+      .min(0)
+      .max(0.1)
       .step(0.001)
       .onFinishChange(() => {
         if (particles.maxSize < particles.minSize) {
@@ -132,9 +132,9 @@ export default class Controls {
 
     this.gui
       .add(particles, 'sizeInc')
-      .min(0.00001)
-      .max(0.0002)
-      .step(0.00001)
+      .min(0)
+      .max(0.0005)
+      .step(0.000002)
       .onFinishChange(() => {
         particles.updateSizes()
       })
@@ -149,8 +149,8 @@ export default class Controls {
       })
 
     this.gui
-      .add(particles, 'skew')
-      .min(1)
+      .add(particles, 'sizeSkew')
+      .min(0)
       .max(100)
       .step(1)
       .onFinishChange(() => {
@@ -161,9 +161,9 @@ export default class Controls {
   addColourStrengthControls (particles) {
     this.gui
       .add(particles, 'brightness')
-      .min(0.1)
+      .min(0)
       .max(3)
-      .step(0.05)
+      .step(0.02)
       .onFinishChange(() => {
         particles.updateColours()
       })
@@ -172,9 +172,9 @@ export default class Controls {
   addOpacityControls (particles) {
     this.gui
       .add(particles, 'opacity')
-      .min(0.1)
+      .min(0)
       .max(1.5)
-      .step(0.05)
+      .step(0.02)
       .onFinishChange(() => {
         particles.updateColours()
       })

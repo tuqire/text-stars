@@ -31,7 +31,7 @@ export default class Particles {
     maxSize = 3,
     sizeRange = 0.5, // the amount the size is allowed to fluxuate in animation
     sizeInc = 0.01, // the amount the size is increased / decreased per frame
-    skew = 1,
+    sizeSkew = 1,
 
     // used to define raycasting boundries
     hoverDist = 10,
@@ -64,7 +64,7 @@ export default class Particles {
     this.maxSize = maxSize
     this.sizeRange = sizeRange
     this.sizeInc = sizeInc
-    this.skew = skew // skews the median size
+    this.sizeSkew = sizeSkew // skews the median size
 
     // used to define mouse interaction animation
     this.hoverDist = hoverDist
@@ -271,7 +271,7 @@ export default class Particles {
 
   calcSize () {
     const sizeRange = this.maxSize - this.minSize
-    const size = this.minSize + (sizeRange * Math.pow(Math.random(), this.skew))
+    const size = this.minSize + (sizeRange * Math.pow(Math.random(), this.sizeSkew))
 
     return size
   }

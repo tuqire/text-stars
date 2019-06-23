@@ -6,23 +6,33 @@ import Renderer from './io/renderer'
 import Scene from './objects/scene'
 import Particles from './objects/particles'
 
-const isNotMobileScreen = () => window.matchMedia('(min-width: 480px)').matches
-const isTabletScreen = () => window.matchMedia('(max-width: 1000px)').matches
+import getParameterByName from './helpers/getParameterByName'
+import showInfoBox from './helpers/showInfoBox'
+import isNotMobileScreen from './helpers/isNotMobileScreen'
 
 document.addEventListener('DOMContentLoaded', () => {
+  const quality = Number(getParameterByName('quality'))
+
+  if (!quality || isNaN(quality)) {
+    document.getElementById('select-quality').style.display = 'block'
+    return
+  }
+
   if (isWebglEnabled && isNotMobileScreen()) {
-    const container = document.getElementById('stars-simulation-container')
+    showInfoBox()
+
+    const container = document.getElementById('simulation')
     const renderer = new Renderer({ container })
     const scene = new Scene()
     const particles = new Particles({
       renderer,
-      numParticles: isTabletScreen() ? 40000 : 120000,
+      numParticles: quality,
       radius: 4,
       minSize: 0.015,
       maxSize: 0.03,
       sizeRange: 0.003,
       sizeInc: 0.00005,
-      skew: 35,
+      sizeSkew: 35,
       hoverDist: 0.04,
       hoverSizeInc: 0.002,
       hoverMaxSizeMultiplier: 1.7,
@@ -76,7 +86,6 @@ document.addEventListener('DOMContentLoaded', () => {
     init()
     animate()
   } else {
-    const info = document.getElementById('info')
-    info.innerHTML = 'This browser is not supported. Please use the latest version of Chrome on desktop.'
+    document.getElementById('no-support').style.display = 'block'
   }
 })
